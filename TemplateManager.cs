@@ -58,7 +58,7 @@ namespace ArabicDocumentGenerator
                         if (string.IsNullOrWhiteSpace(placeholder.Key))
                             continue;
 
-                        string searchValue = $"{{{placeholder.Key}}}";
+                        string searchValue = "{" + placeholder.Key + "}";
                         string newValue = placeholder.Value ?? string.Empty;
 
                         // Search and replace in the document
