@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PVhkpa6p90lVIoud2k1pPTLuer4ainbJlmxBrU72P/G7Mf2vdtnkMR8jn4PVerTcMsqVF2sm99ae3+mPaopU9A==",
+  "dgSpecHash": "kQzMiwIj7fg=",
   "success": true,
   "projectFilePath": "/workspace/ArabicDocumentGenerator.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,8 @@
     "/home/ubuntu/.nuget/packages/documentformat.openxml.framework/3.0.1/documentformat.openxml.framework.3.0.1.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.win32.systemevents/9.0.7/microsoft.win32.systemevents.9.0.7.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.drawing.common/9.0.7/system.drawing.common.9.0.7.nupkg.sha512",
-    "/home/ubuntu/.nuget/packages/system.io.packaging/8.0.0/system.io.packaging.8.0.0.nupkg.sha512"
+    "/home/ubuntu/.nuget/packages/system.io.packaging/8.0.0/system.io.packaging.8.0.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.windowsdesktop.app.ref/8.0.18/microsoft.windowsdesktop.app.ref.8.0.18.nupkg.sha512"
   ],
   "logs": []
 }

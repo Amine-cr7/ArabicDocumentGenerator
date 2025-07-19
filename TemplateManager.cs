@@ -58,7 +58,7 @@ namespace ArabicDocumentGenerator
                         if (string.IsNullOrWhiteSpace(placeholder.Key))
                             continue;
 
-                        string searchValue = $"{{{{{placeholder.Key}}}}}";
+                        string searchValue = $"{{{placeholder.Key}}}";
                         string newValue = placeholder.Value ?? string.Empty;
 
                         // Search and replace in the document
@@ -155,7 +155,7 @@ namespace ArabicDocumentGenerator
         {
             try
             {
-                // Set BiDi (bidirectional) for all paragraphs
+                // Set BiDi (bidirectional) for all paragraphs and runs
                 var body = mainPart.Document.Body;
                 if (body == null) return;
 
@@ -175,10 +175,31 @@ namespace ArabicDocumentGenerator
                         pPr.AppendChild(new BiDi());
                     }
 
-                    // Set text alignment to right
-                    if (pPr.GetFirstChild<Justification>() == null)
+                    // Only set right alignment for paragraphs that don't already have center alignment
+                    var existingJustification = pPr.GetFirstChild<Justification>();
+                    if (existingJustification == null || existingJustification.Val == null || 
+                        existingJustification.Val.Value == JustificationValues.Left)
                     {
+                        if (existingJustification != null)
+                            existingJustification.Remove();
                         pPr.AppendChild(new Justification() { Val = JustificationValues.Right });
+                    }
+
+                    // Set RTL properties for all runs in the paragraph
+                    foreach (var run in paragraph.Descendants<Run>())
+                    {
+                        RunProperties? rPr = run.GetFirstChild<RunProperties>();
+                        if (rPr == null)
+                        {
+                            rPr = new RunProperties();
+                            run.InsertAt(rPr, 0);
+                        }
+
+                        // Set RTL for the run
+                        if (rPr.GetFirstChild<RightToLeftText>() == null)
+                        {
+                            rPr.AppendChild(new RightToLeftText());
+                        }
                     }
                 }
 
