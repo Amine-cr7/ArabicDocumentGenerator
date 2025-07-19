@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\learn\\cyber\\ArabicDocumentGenerator\\ArabicDocumentGenerator.csproj": {}
+    "/workspace/ArabicDocumentGenerator.csproj": {}
   },
   "projects": {
-    "C:\\learn\\cyber\\ArabicDocumentGenerator\\ArabicDocumentGenerator.csproj": {
+    "/workspace/ArabicDocumentGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\learn\\cyber\\ArabicDocumentGenerator\\ArabicDocumentGenerator.csproj",
+        "projectUniqueName": "/workspace/ArabicDocumentGenerator.csproj",
         "projectName": "ArabicDocumentGenerator",
-        "projectPath": "C:\\learn\\cyber\\ArabicDocumentGenerator\\ArabicDocumentGenerator.csproj",
-        "packagesPath": "C:\\Users\\minea\\.nuget\\packages\\",
-        "outputPath": "C:\\learn\\cyber\\ArabicDocumentGenerator\\obj\\",
+        "projectPath": "/workspace/ArabicDocumentGenerator.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/workspace/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\minea\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0-windows"
@@ -32,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -66,12 +61,9 @@
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App.WindowsForms": {
-              "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.118/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

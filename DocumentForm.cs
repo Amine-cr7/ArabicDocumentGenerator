@@ -45,10 +45,12 @@ namespace ArabicDocumentGenerator
 
         private void CreateUnemploymentCertificateForm()
         {
-            AddField("الاسم الكامل", "fullName");
-            AddField("رقم البطاقة الوطنية", "idNumber");
-            AddField("العنوان", "address");
-            AddField("التاريخ", "date");
+            AddField("الاسم", "firstName");
+            AddField("اللقب", "lastName");
+            AddField("رقم الوثيقة", "documentNumber");
+            AddField("صالح من", "validFrom");
+            AddField("صالح إلى", "validTo");
+            AddField("تاريخ تحرير الشهادة", "certificateDate");
         }
 
         private void CreateResidenceCertificateForm()
