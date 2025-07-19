@@ -1,0 +1,5 @@
+C:\learn\cyber\ArabicDocumentGenerator\obj\Debug\net8.0-windows\win-x86\ArabicDocumentGenerator.csproj.AssemblyReference.cache
+C:\learn\cyber\ArabicDocumentGenerator\obj\Debug\net8.0-windows\win-x86\ArabicDocumentGenerator.GeneratedMSBuildEditorConfig.editorconfig
+C:\learn\cyber\ArabicDocumentGenerator\obj\Debug\net8.0-windows\win-x86\ArabicDocumentGenerator.AssemblyInfoInputs.cache
+C:\learn\cyber\ArabicDocumentGenerator\obj\Debug\net8.0-windows\win-x86\ArabicDocumentGenerator.AssemblyInfo.cs
+C:\learn\cyber\ArabicDocumentGenerator\obj\Debug\net8.0-windows\win-x86\ArabicDocumentGenerator.csproj.CoreCompileInputs.cache
