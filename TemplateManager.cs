@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -30,6 +31,9 @@ namespace ArabicDocumentGenerator
 
             try
             {
+                // Validate template file integrity first
+                ValidateWordDocument(absoluteTemplatePath);
+
                 // Ensure output directory exists
                 string? outputDirectory = Path.GetDirectoryName(absoluteOutputPath);
                 if (!string.IsNullOrWhiteSpace(outputDirectory) && !Directory.Exists(outputDirectory))
@@ -215,6 +219,40 @@ namespace ArabicDocumentGenerator
             catch (Exception)
             {
                 // Document settings failed, but continue
+            }
+        }
+
+        private static void ValidateWordDocument(string filePath)
+        {
+            try
+            {
+                // Try to open the document to validate its structure
+                using (WordprocessingDocument doc = WordprocessingDocument.Open(filePath, false))
+                {
+                    if (doc.MainDocumentPart?.Document == null)
+                    {
+                        throw new InvalidDataException("File contains corrupted data.");
+                    }
+
+                    // Additional validation: check if the document has a valid body
+                    var body = doc.MainDocumentPart.Document.Body;
+                    if (body == null)
+                    {
+                        throw new InvalidDataException("File contains corrupted data.");
+                    }
+                }
+            }
+            catch (OpenXmlPackageException ex)
+            {
+                throw new InvalidDataException("File contains corrupted data.", ex);
+            }
+            catch (InvalidDataException)
+            {
+                throw; // Re-throw our custom message
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("File contains corrupted data.", ex);
             }
         }
     }

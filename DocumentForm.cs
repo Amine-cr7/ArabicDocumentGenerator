@@ -190,7 +190,7 @@ namespace ArabicDocumentGenerator
             return documentType switch
             {
                 "شهادة عدم العمل" => "شهادة عدم العمل.docx",
-                "شهادة السكنى" => "شهادة السكن.docx", // Note: your template is named "شهادة السكن.docx"
+                "شهادة السكنى" => "شهادة السكنى.docx", // Fixed: matches actual template file name
                 "طلب خطي" => "طلب خطي.docx",
                 "شهادة الحياة" => "شهادة الحياة.docx",
                 _ => $"{documentType}.docx"
