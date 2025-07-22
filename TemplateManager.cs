@@ -108,16 +108,16 @@ namespace ArabicDocumentGenerator
 
         private static void MergeConsecutiveRuns(OpenXmlElement element)
         {
-            var paragraphs = element.Descendants<Paragraph>().ToList();
-            
-            foreach (var paragraph in paragraphs)
+            // Process paragraphs directly without creating intermediate lists
+            foreach (var paragraph in element.Descendants<Paragraph>())
             {
-                var runs = paragraph.Elements<Run>().ToList();
+                // Use a reverse iteration approach to avoid index shifting issues
+                var runs = paragraph.Elements<Run>().ToArray(); // Single conversion to array
                 
-                for (int i = 0; i < runs.Count - 1; i++)
+                for (int i = runs.Length - 1; i > 0; i--)
                 {
-                    var currentRun = runs[i];
-                    var nextRun = runs[i + 1];
+                    var currentRun = runs[i - 1];
+                    var nextRun = runs[i];
                     
                     // Check if runs have similar formatting and can be merged
                     if (CanMergeRuns(currentRun, nextRun))
@@ -127,10 +127,10 @@ namespace ArabicDocumentGenerator
                         
                         if (currentText != null && nextText != null)
                         {
+                            // Merge text content
                             currentText.Text += nextText.Text;
+                            // Remove the next run from the document
                             nextRun.Remove();
-                            runs.RemoveAt(i + 1);
-                            i--; // Adjust index after removal
                         }
                     }
                 }
@@ -139,16 +139,40 @@ namespace ArabicDocumentGenerator
 
         private static bool CanMergeRuns(Run run1, Run run2)
         {
-            // Simple check - both runs should have no special formatting or same formatting
             var props1 = run1.RunProperties;
             var props2 = run2.RunProperties;
             
             // If both have no properties, they can be merged
             if (props1 == null && props2 == null) return true;
             
-            // For now, only merge if both have no properties
-            // This could be enhanced to compare actual properties
-            return false;
+            // If one has properties and the other doesn't, they cannot be merged
+            if ((props1 == null) != (props2 == null)) return false;
+            
+            // Both have properties - compare key formatting attributes
+            if (props1 != null && props2 != null)
+            {
+                // Compare bold formatting
+                var bold1 = props1.GetFirstChild<Bold>() != null;
+                var bold2 = props2.GetFirstChild<Bold>() != null;
+                if (bold1 != bold2) return false;
+                
+                // Compare italic formatting
+                var italic1 = props1.GetFirstChild<Italic>() != null;
+                var italic2 = props2.GetFirstChild<Italic>() != null;
+                if (italic1 != italic2) return false;
+                
+                // Compare font size
+                var fontSize1 = props1.GetFirstChild<FontSize>()?.Val?.Value;
+                var fontSize2 = props2.GetFirstChild<FontSize>()?.Val?.Value;
+                if (fontSize1 != fontSize2) return false;
+                
+                // Compare RTL text property
+                var rtl1 = props1.GetFirstChild<RightToLeftText>() != null;
+                var rtl2 = props2.GetFirstChild<RightToLeftText>() != null;
+                if (rtl1 != rtl2) return false;
+            }
+            
+            return true;
         }
 
         private static void SetRightToLeftDirection(MainDocumentPart mainPart)

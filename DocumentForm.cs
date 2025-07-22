@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace ArabicDocumentGenerator
@@ -160,8 +161,38 @@ namespace ArabicDocumentGenerator
 
                 if (result == DialogResult.Yes)
                 {
-                    // Open the output directory
-                    System.Diagnostics.Process.Start("explorer.exe", Path.GetFullPath(outputDirectory));
+                    // Open the output directory in a cross-platform way
+                    try
+                    {
+                        string fullPath = Path.GetFullPath(outputDirectory);
+                        if (OperatingSystem.IsWindows())
+                        {
+                            System.Diagnostics.Process.Start("explorer.exe", fullPath);
+                        }
+                        else if (OperatingSystem.IsLinux())
+                        {
+                            System.Diagnostics.Process.Start("xdg-open", fullPath);
+                        }
+                        else if (OperatingSystem.IsMacOS())
+                        {
+                            System.Diagnostics.Process.Start("open", fullPath);
+                        }
+                        else
+                        {
+                            // Fallback: use default system association
+                            var psi = new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = fullPath,
+                                UseShellExecute = true
+                            };
+                            System.Diagnostics.Process.Start(psi);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"لا يمكن فتح المجلد: {ex.Message}", "تحذير", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             catch (FileNotFoundException ex)
